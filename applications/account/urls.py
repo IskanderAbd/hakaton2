@@ -1,4 +1,7 @@
+from django.conf.urls.static import static
 from django.urls import path, include
+
+from online_store_hakaton import settings
 from . import views
 
 urlpatterns = [
