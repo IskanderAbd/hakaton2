@@ -6,21 +6,20 @@ from django.db import models
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
-    def create_superuser(self, email, password, *args, **kwargs):
-        email = self.normalize_email(email)
-        user = self.model(email=email)
-        user.set_password(password)
-
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self.db)
-        return user
-
     def create_user(self, email, password, *args, **kwargs):
         email = self.normalize_email(email)
         user = self.model(email=email)
         user.set_password(password)
         user.save(using=self.db)
+        return user
+
+    def create_superuser(self, email, password, *args, **kwargs):
+        email = self.normalize_email(email)
+        user = self.model(email=email)
+        user.set_password(password)
+        user.is_staff = True
+        user.is_superuser = True
+        user.save(using=self._db)
         return user
 
 
